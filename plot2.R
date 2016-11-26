@@ -1,0 +1,10 @@
+setwd("C:/Users/Christian/datasciencecoursera/data_exploration")
+library('dplyr')
+library('datasets')
+household_power_consumption <- read.csv("C:/Users/Christian/datasciencecoursera/data_exploration/household_power_consumption.txt", sep=";", na.strings="?", stringsAsFactors=FALSE)
+
+Global_active_power_plot<- transmute(household_power_consumption,Date1 = as.Date(Date, "%d/%m/%Y" ), Date = Date, Time = Time, Global_active_power = as.numeric(Global_active_power))
+Global_active_power_plot <- filter(Global_active_power_plot, Date1 >= "2007-02-01" & Date1 <= "2007-02-02")
+png(file='plot2.png', width = 480, height = 480, unit = 'px')
+with(Global_active_power_plot, plot(type = "l", as.POSIXct(strptime(paste(test$Date, test$Time),"%d/%m/%Y %H:%M:%S")), Global_active_power,ylab = 'Global Active Power (kilowatts)', xlab = ''))
+dev.off()
